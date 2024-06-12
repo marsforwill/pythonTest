@@ -1,30 +1,30 @@
-# from llama_index.core import VectorStoreIndex, SimpleDirectoryReader
 # from llama_index.core import VectorStoreIndex,SimpleDirectoryReader,ServiceContext,PromptTemplate
+from llama_index.core import VectorStoreIndex, SimpleDirectoryReader, Settings
+from llama_index.embeddings.huggingface import HuggingFaceEmbedding
+from llama_index.llms.ollama import Ollama
 
-# from llama_index.core import SimpleDirectoryReader
-from llama_index.core import VectorStoreIndex,SimpleDirectoryReader,ServiceContext,PromptTemplate
-
-# 加载文档
-reader = SimpleDirectoryReader('data')
-documents = reader.load_data()
 print("start")
+documents = SimpleDirectoryReader("data").load_data()
 
-# 构建索引
-# index = GPTVectorStoreIndex(documents)
+# bge-base embedding model
+Settings.embed_model = HuggingFaceEmbedding(model_name="BAAI/bge-base-en-v1.5")
 
-# # 保存索引到磁盘
-# index.save_to_disk('index.json')
+# ollama
+Settings.llm = Ollama(model="llama3", request_timeout=360.0)
 
-# # 从磁盘加载索引
-# index = GPTVectorStoreIndex.load_from_disk('index.json')
+index = VectorStoreIndex.from_documents(
+    documents,
+)
+query_engine = index.as_query_engine()
+response = query_engine.query("What did the author do growing up?")
+print(response)
 
-# # 查询索引
-# response = index.query("Find me all software engineers in the bay area that have 5+ years of experience and have worked on a marketplace type product in the past")
-# print(response)
-
-
+# Error :openai.RateLimitError: Error code: 429 - {'error': {'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors.', 'type': 'insufficient_quota', 'param': None, 'code': 'insufficient_quota'}}
+# 加载文档
+# print("start")
 # documents = SimpleDirectoryReader("data").load_data()
 # index = VectorStoreIndex.from_documents(documents)
 # query_engine = index.as_query_engine()
 # response = query_engine.query("What did the author do growing up?")
 # print(response)
+# print("end")
