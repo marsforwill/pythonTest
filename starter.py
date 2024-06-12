@@ -21,7 +21,6 @@ print(response)
 
 # Error :openai.RateLimitError: Error code: 429 - {'error': {'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors.', 'type': 'insufficient_quota', 'param': None, 'code': 'insufficient_quota'}}
 # 加载文档
-# sk-proj-a5txxX55d7BNUl7iQfcIT3BlbkFJUnX1pbVm4ycrMSbYPZ3z
 # print("start")
 # documents = SimpleDirectoryReader("data").load_data()
 # index = VectorStoreIndex.from_documents(documents)
