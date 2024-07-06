@@ -27,4 +27,43 @@ def canPermutePalindrome(S):
     else: 
         return False
 
-print(canPermutePalindrome("tactcoa"))
+# print(canPermutePalindrome("tactcoa"))
+
+# Compress String LCCI
+def compressString(S: str) -> str:
+    if not S:
+        return ""
+    ch = S[0]
+    ans = ''
+    cnt = 0
+    for c in S:
+        if c == ch:
+            cnt += 1
+        else:
+            ans += ch + str(cnt)
+            ch = c
+            cnt = 1
+    ans += ch + str(cnt)
+    return ans if len(ans) < len(S) else S
+
+# print(compressString("aaaabbbc"))
+
+# String Rotation LCCI
+def isFlipedString(s1, s2):
+    # return s2 in s1 + s1
+    s = {s1}
+    l = len(s1)
+    if len(s2) != l:
+        return False
+    temp = s1
+    for i in range(l):
+        temp2 = temp[1:] + temp[0]
+        s.add(temp2)
+        temp = temp2
+    print(s)
+    return True if s2 in s else False
+
+
+print(isFlipedString("sdffs", "asdfd"))
+
+        
