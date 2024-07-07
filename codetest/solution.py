@@ -63,7 +63,37 @@ def isFlipedString(s1, s2):
     print(s)
     return True if s2 in s else False
 
+# print(isFlipedString("sdffs", "asdfd"))
 
-print(isFlipedString("sdffs", "asdfd"))
+class Solution(object):
+    def tictactoe(self, board):
+        """
+        "O X",
+        " XO",
+        "X O"
+        """
 
+        n = len(board)
+        def check(c):
+            s = c * n
+            return any((
+                any(row == s for row in board),
+                any(col == s for col in map("".join, zip(*board))),
+                all(board[i][i] == c for i in range(n)),
+                all(board[i][n-i-1] == c for i in range(n))
+            ))
+        
+        if check("X"):
+            return "X"
+        
+        if check("O"):
+            return "O"
+        
+        if ' ' in ''.join(board):
+            return "Pending"
+        
+        return "Draw"
+        
+sol = Solution()
+print(sol.tictactoe(["O X"," XO","X O"]))
         
