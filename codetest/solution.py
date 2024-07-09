@@ -1,4 +1,6 @@
 from collections import Counter
+import collections
+import math
 
 # leetcode : Check Permutation LCCI
 def CheckPermutation(s1, s2):
@@ -100,11 +102,40 @@ class Solution(object):
             print(word)
             numc = ""
             for c in word:
-                num += m[c]
+                numc += m[c]
             if numc == num:
                 ans.append(word)
         return ans
+    
+    # Smallest Difference LCCI
+    def smallestDifference(self, a, b):
+        a.sort()
+        b.sort()
+        idxa = 0
+        idxb = 0
+        ans = abs(a[0] - b[0])
+        while idxa < len(a) and idxb < len(b):
+            ans = min(ans, abs(a[idxa] - b[idxb]))
+            if a[idxa] < b[idxb]:
+                idxa+=1
+            else:
+                idxb+=1
+        return ans
+    
+    def groupAnagrams(self, strs):
+        """
+        :type strs: List[str]
+        :rtype: List[List[str]]
+        """
+        mp = collections.defaultdict(list)
+        print(type(mp))
+        for str in strs:
+            print(sorted(str))
+            key = "".join(sorted(str))
+            print(key)
+            mp[key].append(str)
+        return list(mp.values())
         
 sol = Solution()
-print(sol.tictactoe(["O X"," XO","X O"]))
+print(sol.groupAnagrams(["OaX","bXO","XaO"]))
         
